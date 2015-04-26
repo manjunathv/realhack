@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ankurModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ankurEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Amenity" EntityType="ankurModel.Amenity" />
+    <EntitySet Name="Bidding" EntityType="ankurModel.Bidding" />
+    <EntitySet Name="City" EntityType="ankurModel.City" />
+    <EntitySet Name="Flat" EntityType="ankurModel.Flat" />
+    <EntitySet Name="Land" EntityType="ankurModel.Land" />
+    <EntitySet Name="Locality" EntityType="ankurModel.Locality" />
+    <EntitySet Name="Login" EntityType="ankurModel.Login" />
+    <EntitySet Name="Trending" EntityType="ankurModel.Trending" />
+    <AssociationSet Name="cityId" Association="ankurModel.cityId">
+      <End Role="City" EntitySet="City" />
+      <End Role="Locality" EntitySet="Locality" />
+    </AssociationSet>
+    <AssociationSet Name="localityId" Association="ankurModel.localityId">
+      <End Role="Locality" EntitySet="Locality" />
+      <End Role="Flat" EntitySet="Flat" />
+    </AssociationSet>
+    <AssociationSet Name="local" Association="ankurModel.local">
+      <End Role="Locality" EntitySet="Locality" />
+      <End Role="Land" EntitySet="Land" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Amenity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Bidding">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LocalityId" Type="Int32" Nullable="false" />
+    <Property Name="FlatId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Locality" Relationship="ankurModel.cityId" FromRole="City" ToRole="Locality" />
+  </EntityType>
+  <EntityType Name="Flat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LocailtyId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" />
+    <Property Name="Area" Type="Int32" Nullable="false" />
+    <Property Name="Amenities" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="Clicks" Type="Int32" Nullable="false" />
+    <Property Name="IsSold" Type="Boolean" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Locality" Relationship="ankurModel.localityId" FromRole="Flat" ToRole="Locality" />
+  </EntityType>
+  <EntityType Name="Land">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LocailtyId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" />
+    <Property Name="Area" Type="Int32" Nullable="false" />
+    <Property Name="Amenities" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="Clicks" Type="Int32" Nullable="false" />
+    <Property Type="Boolean" Name="IsSold" Nullable="false" />
+    <Property Type="Int32" Name="Year" Nullable="false" />
+    <NavigationProperty Name="Locality" Relationship="ankurModel.local" FromRole="Land" ToRole="Locality" />
+  </EntityType>
+  <EntityType Name="Locality">
+    <Key>
+      <PropertyRef Name="LocalityId" />
+    </Key>
+    <Property Name="LocalityId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LocalityName" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="ankurModel.cityId" FromRole="Locality" ToRole="City" />
+    <NavigationProperty Name="Flat" Relationship="ankurModel.localityId" FromRole="Locality" ToRole="Flat" />
+    <NavigationProperty Name="Lands" Relationship="ankurModel.local" FromRole="Locality" ToRole="Land" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailId" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Trending">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LocalityId" Type="Int32" Nullable="false" />
+    <Property Name="Sales" Type="Int32" Nullable="false" />
+    <Property Name="AmenitiesAvailable" Type="Int32" Nullable="false" />
+    <Property Name="Security" Type="Int32" Nullable="false" />
+    <Property Name="RatingScore" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="cityId">
+    <End Role="City" Type="ankurModel.City" Multiplicity="1" />
+    <End Role="Locality" Type="ankurModel.Locality" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Locality">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="localityId">
+    <End Role="Locality" Type="ankurModel.Locality" Multiplicity="1" />
+    <End Role="Flat" Type="ankurModel.Flat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Locality">
+        <PropertyRef Name="LocalityId" />
+      </Principal>
+      <Dependent Role="Flat">
+        <PropertyRef Name="LocailtyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="local">
+    <End Type="ankurModel.Locality" Role="Locality" Multiplicity="1" />
+    <End Type="ankurModel.Land" Role="Land" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Locality">
+        <PropertyRef Name="LocalityId" />
+      </Principal>
+      <Dependent Role="Land">
+        <PropertyRef Name="LocailtyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

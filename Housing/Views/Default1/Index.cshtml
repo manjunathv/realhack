@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Housing.City>
+
+@{
+    Layout = null;
+}
+
+<html>
+    <head>
+         <title>Real Hack</title>
+        
+
+    </head>
+    <body>
+        <label>City : </label>
+        <select id="city" onchange="javascript:getLocalityByCityId(this.value);">
+            <option value="select">Select</option>
+         @foreach (Housing.City city in Model) { 
+         <option value = "@city.Id">@city.Name</option>         
+         }
+        </select>
+        
+        <label>Locality : </label>
+        <select id="locality">
+        
+        </select>
+        
+        <label>Type : </label>
+        <select id ="type">
+          <option value="land">Land</option>
+          <option value="flat">Flat</option>
+        </select>
+        <input type="button" id="btn1" onclick="getResults();" value="Search"/>
+      
+         <script src="~/js/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript">
+           
+            var getLocalityByCityId = function (id) {
+                alert(id);
+                  $.ajax({
+                      url: "/api/Local/" + id,
+                      success: successHandler,
+                      error:errorHandler
+                  })
+                };
+            var successHandler = function (data) {
+                alert(data);
+                  $('#locality').empty();
+                  for (var i = 0; i < data.length; i++) {
+                      $('#locality').append($('<option>', {
+                          value: data[i].LocalityId,
+                          text: data[i].LocalityName
+                      }));
+                  }
+              };
+            var errorHandler = function (data) {
+                
+                alert("Some error occured.");
+                alert(data);
+              };
+
+              
+        </script>
+        <script type="text/javascript">
+            function getResults() {
+                var cityid = $("#city option:selected").val();
+                var localityid = $("#locality option:selected").val();
+                var type = $("#type option:selected").text();
+                var url = "/Result/" + type + "/" + cityid + "/" + localityid;
+                window.location.href = url;
+            }
+
+        </script>
+    </body>
+
+</html>

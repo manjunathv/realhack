@@ -1,0 +1,94 @@
+﻿
+@model IEnumerable<Housing.Models.MyTrending>
+@{
+    Layout = null;
+}
+<html>
+    <head>
+        <style type="text/css">
+            #Map{background: #999; width:100%; height: 500px;}
+            #Graph{ background: #666; width:100% }
+        </style>
+    </head>
+    <body>
+        <div id="Map"></div>
+        <div id="Graph">
+            <div id="columnchart_values" style="width: 100%; height: 100%;"></div>
+        </div>
+
+    </body>
+    <script src="~/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript">
+        
+
+        $(document).ready(function () {
+            var docHeight = $(document).height();
+            var div1Height = $('.div1').height();
+            var div2Height = docHeight - div1Height;
+            $('.div2').css('height', div2Height);
+            getLocalityByCityId(cityid);
+        });
+    </script>
+    <script type="text/javascript">
+        var cityid = 1;
+
+    </script>
+    <script type="text/javascript">
+        var getLocalityByCityId = function (id) {
+            $.ajax({
+                url: "/api/Local/" + id,
+                success: successHandler,
+                error: errorHandler
+            })
+        };
+        var successHandler = function (data) {
+            
+            for (var i = 0; i < data.length; i++) {
+                dataArray.push(["Copper", 8.94, "Sales : " + 8.94 + "\n" + "Rating : 1"]);
+            }
+        };
+        var errorHandler = function (data) {
+            alert("Some error occured.");
+        };
+        </script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+     <script type="text/javascript">
+         google.load("visualization", "1", { packages: ["corechart"] });
+         google.setOnLoadCallback(drawChart);
+         function drawChart() {
+             dataArray = [];
+             dataArray.push(["Locality", "Sales", { 'role': 'tooltip' }]);
+             @foreach(Housing.Models.MyTrending trending in Model)
+             {
+                 <text>
+                    dataArray.push(['@trending.LocalityName', @trending.Sales, "Sales : " + @trending.Sales + "\n" + "Rating : " + @trending.Rating + "\n" +"Amenity : " + @trending.Amenities + "\n" + "Security : " + @trending.Security]);
+                </text>
+             }
+             
+             
+             var data = google.visualization.arrayToDataTable(dataArray);
+
+             var view = new google.visualization.DataView(data);
+             view.setColumns([0, 1,
+                              {
+                                  calc: "stringify",
+                                  sourceColumn: 1,
+                                  type: "string",
+                                  role: "annotation"
+                              },
+                              2]);
+
+             var options = {
+                 title: "Sales in Localities in " + '@ViewData["CityName"]',
+                 width: 1400,
+                 height: 300,
+                 bar: { groupWidth: "30%" },
+                 legend: { position: "none" },
+             };
+             var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+             chart.draw(view, options);
+         }
+  </script>
+</html>
+

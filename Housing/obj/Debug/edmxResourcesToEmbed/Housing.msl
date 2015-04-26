@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ankurModelStoreContainer" CdmEntityContainer="ankurEntities">
+    <EntitySetMapping Name="Amenity">
+      <EntityTypeMapping TypeName="ankurModel.Amenity">
+        <MappingFragment StoreEntitySet="Amenity">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bidding">
+      <EntityTypeMapping TypeName="ankurModel.Bidding">
+        <MappingFragment StoreEntitySet="Bidding">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+          <ScalarProperty Name="FlatId" ColumnName="FlatId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="City">
+      <EntityTypeMapping TypeName="ankurModel.City">
+        <MappingFragment StoreEntitySet="City">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Flat">
+      <EntityTypeMapping TypeName="ankurModel.Flat">
+        <MappingFragment StoreEntitySet="Flat">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LocailtyId" ColumnName="LocailtyId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Amenities" ColumnName="Amenities" />
+          <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+          <ScalarProperty Name="IsSold" ColumnName="IsSold" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Land">
+      <EntityTypeMapping TypeName="ankurModel.Land">
+        <MappingFragment StoreEntitySet="Land">
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="IsSold" ColumnName="IsSold" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LocailtyId" ColumnName="LocailtyId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Amenities" ColumnName="Amenities" />
+          <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locality">
+      <EntityTypeMapping TypeName="ankurModel.Locality">
+        <MappingFragment StoreEntitySet="Locality">
+          <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+          <ScalarProperty Name="LocalityName" ColumnName="LocalityName" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Login">
+      <EntityTypeMapping TypeName="ankurModel.Login">
+        <MappingFragment StoreEntitySet="Login">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trending">
+      <EntityTypeMapping TypeName="ankurModel.Trending">
+        <MappingFragment StoreEntitySet="Trending">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+          <ScalarProperty Name="Sales" ColumnName="Sales" />
+          <ScalarProperty Name="AmenitiesAvailable" ColumnName="AmenitiesAvailable" />
+          <ScalarProperty Name="Security" ColumnName="Security" />
+          <ScalarProperty Name="RatingScore" ColumnName="RatingScore" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
